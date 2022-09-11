@@ -10,14 +10,11 @@ import React from 'react';
 
 import {
   styles,
-  LogOn,
-  LoginBox,
-  PasswordBox,
-  LogOnButton,
-  RegisterButton,
+  InputBox,
   MainContainer,
   HomeTitle,
-} from './Styles';
+  Bttn,
+} from './Styles.js';
 
 import {
   SafeAreaView,
@@ -30,34 +27,33 @@ import {
   TextInput,
 } from 'react-native';
 
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import {Login} from './src/login.js';
+import {Register} from './src/register.js';
+
+
+const Main = createNativeStackNavigator();
+
 
 const App = () => {
-
   return (
-    <MainContainer>
-      <LogOn>
-        <HomeTitle>SIMPLE LOGIN PANEL</HomeTitle>
-        <LoginBox>
-          <TextInput placeholder='Login'/>
-        </LoginBox>
-        <PasswordBox>
-          <TextInput placeholder='Password'/>
-        </PasswordBox>
-        <View style = {styles.marginForButton}>
-          <LogOnButton 
-            title = "Log in"
+      <NavigationContainer>
+        <Main.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
+          <Main.Screen
+            name = "Home"
+            component = {Login}
           />
-        </View>
-        <Text style = {{color: 'palevioletred', textAlign: 'center'}}>Don't have an account?</Text>
-        <View style = {styles.marginForButton}>
-          <RegisterButton 
-            title = "Register right now" 
+        
+          <Main.Screen
+            name = "Register"
+            component = {Register}
           />
-        </View>
-      </LogOn>
-    </MainContainer>
-  );
-};
+        </Main.Navigator>
+      </NavigationContainer>
+    )
+}
 
 
 

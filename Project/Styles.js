@@ -1,75 +1,50 @@
 import { StyleSheet } from 'react-native';
 
-
 import styled from 'styled-components/native';
 
 export const styles = StyleSheet.create({
-    sectionContainer: {
-      marginTop: 32,
-      paddingHorizontal: 24,
-    },
-    sectionTitle: {
-      fontSize: 24,
+    titleFont: {
+      color: 'white',
       fontWeight: '600',
     },
-    sectionDescription: {
-      marginTop: 8,
-      fontSize: 18,
-      fontWeight: '400',
+    bttnFont: {
+      textAlign: 'center',
+      fontSize: 20,
+      color: 'black',
     },
-    highlight: {
-      fontWeight: '700',
+    mainFont: {
+      color: 'white',
     },
-    marginForButton: {
-      margin: 10,
-    }
   });
-
-
-export const LogOn = styled.View`
-    top: 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
-    height: 300px;
-`;
-
-export const LoginBox = styled.View`
-    margin: 10px;
-    padding: 10px;
-    background-color: white;
-    border-style: solid;
-    height: 55px;
-`;
-
-export const PasswordBox = styled.View`
-    margin: 10px;
-    padding: 10px;
-    background-color: white;
-    border-style: solid;
-    height: 55px;
-`;
-
-export const LogOnButton = styled.Button`
-    background-color: #123456;
-    margin: 50px;
-    padding: 10px;
-`;
-
-export const RegisterButton = styled.Button`
-    background-color: #333;
-`;
 
 export const MainContainer = styled.SafeAreaView`
     background-color: black;
     width: 100%;
     height: 100%;
+    padding: 60px;
+    gap: 10px 20px;
+`;
+
+export const InputBox = styled.View`
+    border: 2px solid #BB86FC;
+    margin: 10px 0px;
+    border-radius: 20px;
+`;
+
+export const Bttn = styled.TouchableOpacity`
+    border-radius: 20px;
+    background: #BB86FC;
+    padding: 10px;
+    margin: 10px 0px;
 `;
 
 export const HomeTitle = styled.Text`
-    color: palevioletred;
-    font-size: 30px;
+    margin-top: 10px;
+    font-size: 40px;
     text-align: center;
+`;
+
+export const inputText = styled.TextInput`
+    color: white;
 `;
 
