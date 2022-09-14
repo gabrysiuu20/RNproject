@@ -6,7 +6,7 @@ import {
     MainContainer,
     HomeTitle,
     Bttn,
-  } from '../Styles.js';
+  } from '../Styles';
 
   import {
     SafeAreaView,
@@ -19,30 +19,28 @@ import {
     TextInput,
   } from 'react-native';
 
+const User = require("../models/user.model")
+
 
 export class Register extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            fullName: '',
+            forename: '',
+            surname: '',
             email: '',
-            phone: '',
+            phone: NaN,
             password: '',
             confirmPassword: '',
             loading: false,
         }
-    }
-
-    
-    toHomePage = async () => {
-        await this.formValidation();
-        this.props.navigation.navigate('Home');
     }
     
 
 
     formValidation = async () => {
         this.setState({ loading: true })
+        this.state.phone = Number(this.state.phone)
         let errorFlag = false;
 
         // input validation
@@ -59,10 +57,15 @@ export class Register extends React.Component {
         
         if (this.state.confirmPassword.length == 0) {
           errorFlag = true;
-          this.setState({ confirmPasswordErrorMessage: "Confirm Password is required feild"});
+          this.setState({ confirmPasswordErrorMessage: "Confirm Password is required field"});
         } else if (this.state.confirmPassword.length < 8 ||  this.state.confirmPassword.length > 20) {
           errorFlag = true;
           this.setState({ confirmPasswordErrorMessage: "Password should be min 8 char and max 20 char"});
+        }
+
+        if (isNaN(this.state.phone)) {
+            errorFlag = true;
+            this.setState({ phoneErrorMessage: "Phone should have consist of digits"});
         }
        
         if (errorFlag) {
@@ -71,18 +74,24 @@ export class Register extends React.Component {
             /** Call Your API */
         } else {
             this.setState({ loading: false });
+            console.log(`${this.state.forename} ${this.state.surname} ${this.state.email} ${this.state.phone} ${this.state.password} ${this.state.confirmPassword}`);
+            this.props.navigation.navigate('Home');
         }
     }
 
+    
+            
+
      
     render() {
-        
-        const errorFlag = this.formValidation.errorFlag;
         return (
             <MainContainer>
                 <HomeTitle style = {styles.titleFont}>Register</HomeTitle>
                 <InputBox>
-                    <TextInput style={styles.mainFont} placeholder='Full name' placeholderTextColor='white' onChangeText={fullName=>this.setState({ fullName })}/>
+                    <TextInput style={styles.mainFont} placeholder='Forename' placeholderTextColor='white' onChangeText={forename=>this.setState({ forename })}/>
+                </InputBox>
+                <InputBox>
+                    <TextInput style={styles.mainFont} placeholder='Surname' placeholderTextColor='white' onChangeText={surname=>this.setState({ surname })}/>
                 </InputBox>
                 <InputBox>
                     <TextInput style={styles.mainFont} placeholder='E-mail' placeholderTextColor='white' onChangeText={email=>this.setState({ email })}/>

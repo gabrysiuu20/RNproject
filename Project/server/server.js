@@ -1,30 +1,82 @@
-import express from "express";
-import { join } from "path";
-import { json, urlencoded } from "body-parser";
+const express = require("express");
+const cors = require("cors");
 
-import index from "./routes/index.js";
-import users from "./routes/users.js";
+const app = express();
 
-var app = express();
+var corsOptions = {
+    origin: "http://localhost:8081"
+};
 
-var port = 3000;
+app.use(cors(corsOptions));
 
-app.listen(port, function(){
-    console.log("Server is running on port", port);
+app.use(express.json());
+
+app.use(express.urlencoded({ extended: true }));
+
+app.get("/", (req, res) => {
+    res.json({ message: "Welcome to bezkoder application." });
+  });
+
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}.`);
 });
 
-//views
+const db = require("../models");
+const dbConfig = require("../database/db.config.js");
 
-app.set("views", join(__dirname, "views"));
-app.set("view engine", "ejs");
-app.engine("html", require("ejs").renderFile);
+const Role = db.role;
 
-//Body parser MW
+db.mongoose
+    .connect(`mongodb+srv://${dbConfig.HOST}:${dbConfig.PASS}@cluster0.li8q53j.mongodb.net/RNproject?retryWrites=true&w=majority`, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    })
+    .then(() => {
+        console.log("Successfully connect to MongoDB.");
+        initial();
+    })
+    .catch(err => {
+        console.error("Connection error", err);
+        process.exit();
+    })
 
-app.use(json());
-app.use(urlencoded({extended:true}));
+function initial() {
+    Role.estimatedDocumentCount((err, count) => {
+        if (!err && count === 0) {
+            new Role({
+                name: "user"
+            }).save(err => {
+                if (err) {
+                    console.log("error", err);
+                }
 
-//Routes
+                console.log("added 'user' to roles collection");
+            });
 
-app.use("/", index);
-app.use("/api", users);
+            new Role({
+                name: "moderator"
+              }).save(err => {
+                if (err) {
+                  console.log("error", err);
+                }
+        
+                console.log("added 'moderator' to roles collection");
+              });
+        
+              new Role({
+                name: "admin"
+              }).save(err => {
+                if (err) {
+                  console.log("error", err);
+                }
+        
+                console.log("added 'admin' to roles collection");
+              });
+        }
+    });
+}
+
+// routes
+require('./routes/auth.routes.js')(app);
+require('./routes/user.routes.js')(app);
