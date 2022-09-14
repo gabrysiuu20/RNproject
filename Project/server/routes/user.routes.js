@@ -1,4 +1,4 @@
-const { authJwt } = require("../../log_options");
+const { authJwt, jwtAuth } = require("../../log_options");
 const controller = require("../../controllers/user.controller");
 
 module.exports = function(app) {
@@ -12,17 +12,17 @@ module.exports = function(app) {
 
   app.get("/api/test/all", controller.allAccess);
 
-  app.get("/api/test/user", [authJwt.verifyToken], controller.userBoard);
+  app.get("/api/test/user", [jwtAuth.verifyToken], controller.userBoard);
 
   app.get(
     "/api/test/mod",
-    [authJwt.verifyToken, authJwt.isModerator],
+    [jwtAuth.verifyToken, jwtAuth.isModerator],
     controller.moderatorBoard
   );
 
   app.get(
     "/api/test/admin",
-    [authJwt.verifyToken, authJwt.isAdmin],
+    [jwtAuth.verifyToken, jwtAuth.isAdmin],
     controller.adminBoard
   );
 };
