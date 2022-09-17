@@ -18,8 +18,6 @@ import {
     View,
     TextInput,
   } from 'react-native';
-import { user } from '../models';
-import { ThemeConsumer } from 'styled-components';
 
 const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
