@@ -2,7 +2,7 @@
 
 Project for internships
 
-# What you need
+## What you need
 
 1. Android Studio + AVD Emulator
 
@@ -12,4 +12,4 @@ Project for internships
 
 2. Run command "docker-compose -f docker-compose.yml up"
 
-3. Wait for
+3. Wait for a miracle
