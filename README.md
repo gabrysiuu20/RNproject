@@ -4,7 +4,7 @@ Project for internships
 
 ## What you need
 
-1. Android Studio + AVD Emulator
+1. Android Studio + AVD Emulator (android only)
 
 ## Instruction
 
