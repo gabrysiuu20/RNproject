@@ -2,12 +2,14 @@ version: "3.8"
 
 services:
   app:
+    image: react-native
     build: ./Project
     restart: unless-stopped
     env_file: ./.env
     ports:
       - $EXPRESS_LOCAL_PORT:$EXPRESS_DOCKER_PORT
   backend:
+    image: express
     build: ./Project/server
     restart: unless-stopped
     env_file: ./.env
@@ -26,5 +28,6 @@ services:
       - $MONGO_LOCAL_PORT:$MONGO_DOCKER_PORT
     volumes:
       - ./db:/data/db
+
 
     
