@@ -1,0 +1,6 @@
+# All files not included in image
+Dockerfile
+.dockerignore
+.gitignore
+
+node_modules
