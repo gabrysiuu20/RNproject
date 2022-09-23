@@ -1,5 +1,5 @@
-const { authJwt, jwtAuth } = require("../../log_options");
-const controller = require("../../controllers/user.controller");
+const { jwtAuth } = require("../log_options/index.js");
+const controller = require("../controllers/user.controller.js");
 
 module.exports = function(app) {
   app.use(function(req, res, next) {

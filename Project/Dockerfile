@@ -1,8 +1,8 @@
 FROM node:18.9-alpine3.15
-WORKDIR /Project
+WORKDIR /app
 COPY package*.json ./
+COPY ./ ./
 RUN npm install --legacy-peer-deps
 
-COPY . .
 EXPOSE 8081
 CMD ["npm", "start"]

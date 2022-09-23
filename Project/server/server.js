@@ -20,8 +20,8 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });
 
-const db = require("../models");
-const dbConfig = require("../database/db.config.js");
+const db = require("./models/index.js");
+const dbConfig = require("./database/db.config.js");
 
 const Role = db.role;
 

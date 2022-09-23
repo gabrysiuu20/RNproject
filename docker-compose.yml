@@ -6,8 +6,12 @@ services:
     build: ./Project
     restart: unless-stopped
     env_file: ./.env
+    depends_on:
+      - backend
     ports:
       - $EXPRESS_LOCAL_PORT:$EXPRESS_DOCKER_PORT
+    networks:
+      - mynetwork
   backend:
     image: express
     build: ./Project/server
@@ -15,19 +19,10 @@ services:
     env_file: ./.env
     ports:
       - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
-    depends_on:
-      - mongodb
-  mongodb:
-    image: mongo:5.0.2
-    restart: unless-stopped
-    env_file: ./.env
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=$MONGODB_USER
-      - MONGO_INITDB_ROOT_PASSWORD=$MONGODB_PASSWORD
-    ports:
-      - $MONGO_LOCAL_PORT:$MONGO_DOCKER_PORT
-    volumes:
-      - ./db:/data/db
+    networks:
+      - mynetwork
 
+networks:
+  mynetwork:
 
     
