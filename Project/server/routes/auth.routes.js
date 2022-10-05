@@ -1,5 +1,5 @@
-const { verifySignUp } = require("../log_options");
-const controller = require("../controllers/auth.controller");
+const { verifySignUp } = require("../log_options/index.js");
+const controller = require("../controllers/auth.controller.js");
 
 module.exports = function(app) {
   app.use(function(req, res, next) {

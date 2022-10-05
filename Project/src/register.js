@@ -98,7 +98,8 @@ export class Register extends React.Component {
             })
             .then((res) => {
                 if (!res.ok){
-                    console.error(res.status.toString());
+                    res.json().then((body) =>
+                        console.error(body.message));
                 }else{
                     this.props.navigation.navigate('Home');
                 }

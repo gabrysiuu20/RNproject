@@ -45,7 +45,11 @@ export class Login extends React.Component {
         })
         .then((res) => {
             if (!res.ok){
-                console.error(res.status.toString());
+                res.json().then((body) =>
+                    console.error(body.message));
+            }else{
+                res.json().then((body) =>
+                    console.log("Welcome " + body.forename + "!"));
             }
         });
     }
